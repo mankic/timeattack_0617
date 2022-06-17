@@ -16,7 +16,8 @@ class SingUp(APIView):
         password = request.data.get('password', '')
         type = request.data.get('type','')
 
+        type = UserType.objects.get(type=type)
         
-        User.objects.create_user(email=email, password=password)
+        User(email=email, password=password, type=type).save()
 
-        return Response({"message": "login success!!"})
+        return Response({"message": "signup success!!"})
